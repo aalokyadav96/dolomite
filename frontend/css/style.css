@@ -1,0 +1,215 @@
+:root {
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --bg-app: #f4f6f8;
+  --bg-card: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+  --danger-border: #fca5a5;
+  --success: #16a34a;
+  --success-bg: #f0fdf4;
+  --border-color: #e5e7eb;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --transition: all 0.2s ease-in-out;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 24px;
+  background: var(--bg-app);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Layout & Navigation --- */
+
+#app {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+nav {
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  background: var(--bg-card);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+nav a,
+nav button {
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-main);
+  transition: var(--transition);
+}
+
+nav a:hover,
+nav button:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+nav button {
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
+  color: #991b1b;
+}
+
+nav button:hover {
+  background: #fecaca;
+}
+
+/* --- Cards --- */
+
+.card {
+  background: var(--bg-card);
+  padding: 28px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  max-width: 480px;
+  margin: 0 auto;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.card h1, .card h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.card p {
+  margin: 0 0 12px 0;
+  color: var(--text-muted);
+}
+
+/* --- Forms & Inputs --- */
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  transition: var(--transition);
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-group input.invalid {
+  border-color: var(--danger);
+  background-color: #fef2f2;
+}
+
+.form-group input.valid {
+  border-color: var(--success);
+  background-color: var(--success-bg);
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: block;
+  min-height: 16px;
+}
+
+/* --- Action Buttons --- */
+
+button[type="submit"],
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  width: 100%;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+button[type="submit"]:hover,
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+button:disabled,
+.btn-primary:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* --- Alerts & Status --- */
+
+.error {
+  color: var(--danger);
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-border);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  margin-top: 14px;
+  font-size: 0.85rem;
+}
+
+.error:empty {
+  display: none;
+}
+
+/* --- Animations --- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
