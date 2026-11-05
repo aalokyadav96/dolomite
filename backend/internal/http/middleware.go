@@ -1,4 +1,4 @@
-package middleware
+package httpx
 
 import (
 	"encoding/json"
@@ -62,22 +62,24 @@ func CORS(next http.Handler) http.Handler {
 }
 
 // Auth validates the bearer token for protected routes.
-func Auth(next httprouter.Handle) httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-		authHeader := r.Header.Get("Authorization")
-		if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
-			w.WriteHeader(http.StatusUnauthorized)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Unauthorized: Missing token"})
-			return
-		}
+func Auth(token string) func(httprouter.Handle) httprouter.Handle {
+	return func(next httprouter.Handle) httprouter.Handle {
+		return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+			authHeader := r.Header.Get("Authorization")
+			if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
+				w.WriteHeader(http.StatusUnauthorized)
+				json.NewEncoder(w).Encode(map[string]string{"error": "Unauthorized: Missing token"})
+				return
+			}
 
-		token := strings.TrimPrefix(authHeader, "Bearer ")
-		if token != "valid-jwt-token-xyz" {
-			w.WriteHeader(http.StatusUnauthorized)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Unauthorized: Invalid token"})
-			return
-		}
+			providedToken := strings.TrimPrefix(authHeader, "Bearer ")
+			if providedToken != token {
+				w.WriteHeader(http.StatusUnauthorized)
+				json.NewEncoder(w).Encode(map[string]string{"error": "Unauthorized: Invalid token"})
+				return
+			}
 
-		next(w, r, ps)
+			next(w, r, ps)
+		}
 	}
 }

@@ -1,4 +1,4 @@
-import { div, h2, form, label, input, button } from '../dom';
+import { div, h2, form, label, input, button } from '../components/ui/dom';
 import { apiFetch } from '../api';
 import { authActions } from '../appState';
 import { router } from '../main';

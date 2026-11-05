@@ -1,15 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-
-	"nae/internal/routes"
+	"nae/internal/app"
+	"nae/internal/config"
 )
 
 func main() {
-	fmt.Println("Server running at http://localhost:4000")
-	if err := http.ListenAndServe(":4000", routes.New()); err != nil {
+	if err := app.Start(config.Default()); err != nil {
 		panic(err)
 	}
 }

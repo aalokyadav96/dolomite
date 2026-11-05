@@ -1,4 +1,4 @@
-import { div, h2, p, a } from '../dom';
+import { div, h2, p, a } from '../components/ui/dom';
 
 export function createUnauthorizedPage(): HTMLElement {
   return div({ className: 'card' },

@@ -1,4 +1,4 @@
-import { div, h2, p, span, button } from '../dom';
+import { div, h2, p, span, button } from '../components/ui/dom';
 import { appStore, authActions } from '../appState';
 import { router } from '../main';
 

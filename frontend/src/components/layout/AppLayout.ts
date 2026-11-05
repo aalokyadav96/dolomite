@@ -1,4 +1,4 @@
-import { div } from '../../dom';
+import { div } from '../ui/dom';
 import { appStore } from '../../appState';
 import { createNavElement } from './NavBar';
 

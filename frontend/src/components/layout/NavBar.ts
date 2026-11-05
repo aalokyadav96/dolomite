@@ -1,4 +1,4 @@
-import { div, span, button, a } from '../../dom';
+import { div, span, button, a } from '../ui/dom';
 import { appStore, authActions } from '../../appState';
 import { router } from '../../main';
 
@@ -12,8 +12,8 @@ export function createNavElement(): HTMLElement {
   if (state.token) {
     navChildren.push(
       a({ href: '/profile', 'data-link': '' }, '👤 Profile'),
-      a({ href: '/farms/1', 'data-link': '' }, 'Farm 1'),
-      a({ href: '/farms/2', 'data-link': '' }, 'Farm 2')
+      a({ href: '/farms', 'data-link': '' }, '🌾 Farms'),
+      a({ href: '/crops', 'data-link': '' }, '🌱 Crop Catalogue')
     );
 
     if (state.roles.includes('admin')) {

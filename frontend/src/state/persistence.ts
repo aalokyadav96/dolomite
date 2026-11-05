@@ -5,7 +5,7 @@ export interface PersistOptions<T> {
   version?: number;
   migrations?: Record<number, (oldState: any) => any>;
   pick?: (state: T) => Partial<T>;
-  debounceMs?: number; // Optional debounce delay in milliseconds (e.g., 300)
+  debounceMs?: number;
 }
 
 interface PersistedEnvelope<T> {
@@ -27,12 +27,11 @@ export function withPersistence<T extends Record<string, any>>(
       let storedVersion = envelope.version ?? 1;
       let workingState = envelope.state;
 
-      // Sequentially run version migrations if stored version is outdated
       if (options.migrations) {
         while (storedVersion < currentVersion) {
           const nextVersion = storedVersion + 1;
           const migrationFn = options.migrations[nextVersion];
-          
+
           if (migrationFn) {
             console.info(`Migrating state from v${storedVersion} to v${nextVersion}...`);
             workingState = migrationFn(workingState);
@@ -47,10 +46,8 @@ export function withPersistence<T extends Record<string, any>>(
     }
   }
 
-  // Timer reference for debouncing writes
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  // Auto-sync store updates to localStorage with version metadata and debouncing
   store.subscribe((state) => {
     const dataToSave = options.pick ? options.pick(state) : state;
     const envelope: PersistedEnvelope<T> = {

@@ -1,4 +1,4 @@
-import { div, h2, a } from '../dom';
+import { div, h2, a } from '../components/ui/dom';
 
 export function createNotFoundPage(): HTMLElement {
   return div({ className: 'card' },

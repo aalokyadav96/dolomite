@@ -1,4 +1,4 @@
-import { div, h2, p } from '../dom';
+import { div, h2, p } from '../components/ui/dom';
 
 export function createAdminSettingsPage(): HTMLElement {
   return div({ className: 'card' },

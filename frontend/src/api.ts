@@ -10,12 +10,14 @@ export async function apiFetch<T = any>(endpoint: string, options: ApiOptions = 
   const { requiresAuth = false, headers: customHeaders, ...customOptions } = options;
 
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
     ...(customHeaders as Record<string, string>),
   };
 
+  if (!(customOptions.body instanceof FormData)) {
+    headers['Content-Type'] = 'application/json';
+  }
+
   if (requiresAuth) {
-    // Read token directly from the functional store state instead of localStorage.getItem('auth_token')
     const state = appStore.getState();
     const token = state.token;
 
@@ -33,7 +35,6 @@ export async function apiFetch<T = any>(endpoint: string, options: ApiOptions = 
   });
 
   if (response.status === 401) {
-    // Use authActions.logout() to clear both store state and persisted storage cleanly
     authActions.logout();
     window.dispatchEvent(new CustomEvent('auth:unauthorized'));
     throw new Error('Unauthorized');
@@ -42,6 +43,15 @@ export async function apiFetch<T = any>(endpoint: string, options: ApiOptions = 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
     throw new Error(errorData.error || `HTTP error ${response.status}`);
+  }
+
+  if (response.status === 204) {
+    return undefined as T;
+  }
+
+  const contentType = response.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    return undefined as T;
   }
 
   return response.json();

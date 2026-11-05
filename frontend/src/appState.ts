@@ -1,5 +1,5 @@
-import { createStore } from './store';
-import { withPersistence } from './persistence';
+import { createStore } from './state/store';
+import { withPersistence } from './state/persistence';
 
 export interface AppState {
   token: string | null;
