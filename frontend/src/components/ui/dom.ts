@@ -31,6 +31,9 @@ export function el<K extends keyof HTMLElementTagNameMap>(
 
 // Convenient shorthand wrappers for common tags
 export const div = (attrs?: ElementAttributes, ...children: (Node | string)[]) => el('div', attrs, ...children);
+export const header = (attrs?: ElementAttributes, ...children: (Node | string)[]) => el('header', attrs, ...children);
+export const main = (attrs?: ElementAttributes, ...children: (Node | string)[]) => el('main', attrs, ...children);
+export const footer = (attrs?: ElementAttributes, ...children: (Node | string)[]) => el('footer', attrs, ...children);
 export const button = (attrs?: ElementAttributes, ...children: (Node | string)[]) => el('button', attrs, ...children);
 export const input = (attrs?: ElementAttributes) => el('input', attrs);
 export const p = (attrs?: ElementAttributes, ...children: (Node | string)[]) => el('p', attrs, ...children);

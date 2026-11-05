@@ -11,21 +11,21 @@ export function createNavElement(): HTMLElement {
 
   if (state.token) {
     navChildren.push(
-      a({ href: '/profile', 'data-link': '' }, '👤 Profile'),
-      a({ href: '/farms', 'data-link': '' }, '🌾 Farms'),
-      a({ href: '/crops', 'data-link': '' }, '🌱 Crop Catalogue')
+      a({ href: '/profile', 'data-link': '' }, 'Profile'),
+      a({ href: '/farms', 'data-link': '' }, 'Farms'),
+      a({ href: '/crops', 'data-link': '' }, 'Crop Catalogue')
     );
 
     if (state.roles.includes('admin')) {
-      const adminLink = a({ href: '/admin/settings', 'data-link': '' }, '⚙️ Admin Panel');
-      (adminLink as HTMLElement).style.fontWeight = 'bold';
-      (adminLink as HTMLElement).style.color = '#dc2626';
+      const adminLink = a({ href: '/admin/settings', 'data-link': '' }, 'Admin');
+      adminLink.classList.add('nav-admin-link');
       navChildren.push(adminLink);
     }
 
     navChildren.push(
-      span({ style: 'margin-left: auto; font-weight: 500;' }, `Hello, ${state.handle || 'User'}`),
+      span({ className: 'nav-user-pill' }, `Hello, ${state.handle || 'User'}`),
       button({
+        className: 'nav-logout',
         onClick: () => {
           authActions.logout();
           router.navigate('/login');
@@ -39,5 +39,5 @@ export function createNavElement(): HTMLElement {
     );
   }
 
-  return div({}, ...navChildren);
+  return div({ className: 'nav-bar' }, ...navChildren);
 }
