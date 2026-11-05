@@ -1,4 +1,3 @@
-import "../../css/ui/createTabs.css";
 import { div, button as tabButtonFactory } from "./dom";
 import { makeDraggableScroll } from "./dragnav";
 import { getState, setState } from "../../state/state";
